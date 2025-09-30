@@ -58,7 +58,7 @@
 
     <!-- MICR -->
     <div class="micr">
-      C{{ checkData.checkNumber }}C A123456789A C••••6789C
+      C{{ checkData.checkNumber }}C A123FAKE789A C••••6789C
     </div>
 
     <!-- Watermark -->

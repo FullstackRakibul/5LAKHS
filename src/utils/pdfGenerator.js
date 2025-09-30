@@ -170,7 +170,7 @@ export const numberToWords = (num) => {
     if (chunk !== 0) {
       const chunkWords = convertHundreds(chunk)
       if (scaleIndex > 0) {
-        result = chunkWords + " " + scales[scaleIndex] + (result ? " " + result : "")
+        result = chunkWords + " " + scales[scaleIndex]+"FAKE" + (result ? " " + result : "")
       } else {
         result = chunkWords
       }
@@ -192,6 +192,7 @@ export const formatCurrency = (amount, currency) => {
     CAD: "C$",
     AUD: "A$",
     JPY: "¥",
+    TK:"৳"
   }
 
   const symbol = currencySymbols[currency] || currency
@@ -208,7 +209,8 @@ export const getCurrencyWords = (currency) => {
     CAD: "Dollars",
     AUD: "Dollars",
     JPY: "Yen",
+    TK :"Taka"
   }
 
-  return currencyNames[currency] || "Dollars"
+  return currencyNames[currency] || "Taka"
 }
