@@ -1,0 +1,65 @@
+
+@import "tailwindcss";
+
+
+
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"); */
+
+/* Converting HSL colors to RGB for html2canvas compatibility */
+:root {
+  --border: rgb(220, 220, 230);
+  --input: rgb(220, 220, 230);
+  --ring: rgb(10, 10, 20);
+  --background: rgb(255, 255, 255);
+  --foreground: rgb(10, 10, 20);
+  --primary: rgb(15, 23, 42);
+  --primary-foreground: rgb(248, 250, 252);
+  --secondary: rgb(241, 245, 249);
+  --secondary-foreground: rgb(10, 10, 20);
+  --destructive: rgb(239, 68, 68);
+  --destructive-foreground: rgb(248, 250, 252);
+  --muted: rgb(241, 245, 249);
+  --muted-foreground: rgb(100, 116, 139);
+  --accent: rgb(241, 245, 249);
+  --accent-foreground: rgb(10, 10, 20);
+  --popover: rgb(255, 255, 255);
+  --popover-foreground: rgb(10, 10, 20);
+  --card: rgb(255, 255, 255);
+  --card-foreground: rgb(10, 10, 20);
+  --radius: 0.5rem;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Custom styles for check design */
+.check-paper {
+  background: linear-gradient(45deg, transparent 49%, rgba(0, 0, 0, 0.1) 49%, rgba(0, 0, 0, 0.1) 51%, transparent 51%);
+  background-size: 20px 20px;
+}
+
+.micr-font {
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* Utility classes */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Print styles */
+@media print {
+  .check-template {
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+  }
+}
