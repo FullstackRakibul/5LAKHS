@@ -42,16 +42,19 @@ Each help = 🏅 a **5 lakh check** → at month’s end, they become **points +
 
 ---
 
-## 📂 Repo Structure  
+
+
+## 📂 Repo Structure
+```text
 .
 ├── src/
-│ ├── components/
-│ │ └── CheckTemplate.vue # main Vue SFC
-│ ├── utils/
-│ │ └── numberToWords.js # helper
-│ └── App.vue
+│   ├── components/
+│   │   └── CheckTemplate.vue      # main Vue SFC
+│   ├── utils/
+│   │   └── numberToWords.js       # helper
+│   └── App.vue
 ├── public/
-│ └── assets/ # logos / fonts
+│   └── assets/                     # logos / fonts
 ├── package.json
 ├── README.md
 └── LICENSE
