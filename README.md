@@ -1,4 +1,4 @@
-# 🏦 Developer Bank — Fun Check Generator  
+# 🏦  Upay (উপায়) — Mayer Dowa Check Generator  
 
 [![Made with Vue](https://img.shields.io/badge/Made%20with-Vue-42b883?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org/)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)  
