@@ -13,11 +13,28 @@ export const generateCheckPDF = async (checkData) => {
 
     console.log("[v0] Check element found, preparing for canvas conversion")
 
+    // Create a container to hold the cloned element off-screen but within viewport logic
+    const container = document.createElement('div')
+    container.style.position = 'fixed'
+    container.style.top = '0'
+    container.style.left = '0'
+    container.style.width = '800px'
+    container.style.height = '350px'
+    container.style.zIndex = '-9999' // Hide behind everything
+    container.style.overflow = 'hidden'
+    document.body.appendChild(container)
+
     const clonedElement = checkElement.cloneNode(true)
-    clonedElement.style.position = "absolute"
-    clonedElement.style.left = "-9999px"
+    clonedElement.style.position = "relative"
+    clonedElement.style.left = "0"
     clonedElement.style.top = "0"
-    document.body.appendChild(clonedElement)
+    clonedElement.style.margin = "0"
+    clonedElement.style.transform = "none"
+    clonedElement.style.width = "800px"
+    clonedElement.style.height = "350px"
+    clonedElement.style.backgroundColor = "#ffffff"
+    
+    container.appendChild(clonedElement)
 
     // Wait for any fonts to load
     await document.fonts.ready
@@ -30,6 +47,8 @@ export const generateCheckPDF = async (checkData) => {
       backgroundColor: "#ffffff",
       width: 800,
       height: 350,
+      windowWidth: 800,
+      windowHeight: 350,
       logging: false,
       removeContainer: true,
       imageTimeout: 0,
@@ -59,7 +78,7 @@ export const generateCheckPDF = async (checkData) => {
       },
     })
 
-    document.body.removeChild(clonedElement)
+    document.body.removeChild(container)
     console.log("[v0] Canvas generated successfully")
 
     // Create PDF in landscape orientation to fit check properly
@@ -170,7 +189,7 @@ export const numberToWords = (num) => {
     if (chunk !== 0) {
       const chunkWords = convertHundreds(chunk)
       if (scaleIndex > 0) {
-        result = chunkWords + " " + scales[scaleIndex]+"FAKE" + (result ? " " + result : "")
+        result = chunkWords + " " + scales[scaleIndex] + (result ? " " + result : "")
       } else {
         result = chunkWords
       }
@@ -192,7 +211,7 @@ export const formatCurrency = (amount, currency) => {
     CAD: "C$",
     AUD: "A$",
     JPY: "¥",
-    TK:"৳"
+    BDT:"৳"
   }
 
   const symbol = currencySymbols[currency] || currency
@@ -202,6 +221,7 @@ export const formatCurrency = (amount, currency) => {
 // Utility function to get currency names for amount in words
 export const getCurrencyWords = (currency) => {
   const currencyNames = {
+    BDT: "Taka",
     USD: "Dollars",
     EUR: "Euros",
     GBP: "Pounds",
