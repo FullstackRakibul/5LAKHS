@@ -24,15 +24,15 @@
 
           <div v-if="error" class="text-red-600 text-sm">{{ error }}</div>
 
-          <div class="flex justify-center space-x-4">
-            <button type="submit" :disabled="loading" class="w-1/3 flex justify-center py-2 px-4 border border-transparent rounded-md shadow 
-                     text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 
+          <div class="flex justify-center space-x-2">
+            <button type="submit" :disabled="loading" class="w-1/3 flex justify-center py-2 px-2 border border-transparent  text-xs rounded-md shadow 
+                     text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700 
                      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50">
               {{ loading ? 'Signing in...' : 'Sign In' }}
             </button>
 
             <!-- Autofill Button -->
-            <button type="submit" @click="setDemoCredentials" class="w-2/3 flex justify-center py-2 px-4 rounded-md shadow text-sm font-medium 
+            <button type="submit" @click="setDemoCredentials" class="w-2/3 flex justify-center py-2 px-2 rounded-md shadow text-xs font-medium 
                      text-indigo-600 bg-indigo-50 hover:bg-indigo-100 
                      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-sans">
               দরকার নাই, আন্দাজে Try করেন
