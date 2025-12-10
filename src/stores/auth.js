@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 
 export const useAuthStore = defineStore("auth", () => {
-  const isAuthenticated = ref(false)
+  const isAuthenticated = ref(!!localStorage.getItem('authToken'))
   const user = ref(null)
 
   const setAuthenticated = (status) => {
