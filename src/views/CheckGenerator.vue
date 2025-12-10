@@ -214,15 +214,23 @@ const generateCheck = async () => {
     const newCount = currentCount + 1
     localStorage.setItem('checksGenerated', newCount.toString())
 
-    // Add to recent activity
-    const activity = {
-      description: `Generated check for ${checkData.value.payeeName} - ${formatAmount(checkData.value.amount, checkData.value.currency)}`,
-      time: new Date().toLocaleTimeString()
+    // Create full check object with ID
+    const newCheck = {
+      id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+      ...checkData.value,
+      createdAt: new Date().toISOString(),
+      formattedTime: new Date().toLocaleTimeString(),
+      description: `Generated check for ${checkData.value.payeeName} - ${formatAmount(checkData.value.amount, checkData.value.currency)}`
     }
 
-    const recentActivity = JSON.parse(localStorage.getItem('recentActivity') || '[]')
-    recentActivity.unshift(activity)
-    if (recentActivity.length > 10) recentActivity.pop()
+    let recentActivity = JSON.parse(localStorage.getItem('recentActivity') || '[]')
+    // Ensure recentActivity is an array
+    if (!Array.isArray(recentActivity)) {
+      recentActivity = []
+    }
+
+    recentActivity.unshift(newCheck)
+    if (recentActivity.length > 20) recentActivity.pop()
     localStorage.setItem('recentActivity', JSON.stringify(recentActivity))
 
   } catch (error) {

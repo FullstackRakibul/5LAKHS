@@ -90,15 +90,19 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-gray-900">{{ activity.description }}</p>
+                    <p class="text-sm font-medium text-gray-900">
+                      {{ activity.payeeName ? `Check for ${activity.payeeName}` : activity.description }}
+                    </p>
                     <div class="flex items-center mt-1">
                       <svg class="w-3 h-3 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                       </svg>
-                      <p class="text-xs text-gray-500">{{ activity.time }}</p>
+                      <p class="text-xs text-gray-500">{{ activity.formattedTime || activity.time }}</p>
                       <span class="mx-2 text-gray-300">•</span>
-                      <p class="text-xs text-gray-500">Check #{{ activity.data?.checkNumber || '0001' }}</p>
+                      <p class="text-xs text-gray-500">
+                        {{ activity.amount ? `${activity.currency} ${activity.amount.toLocaleString()}` : '' }}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -211,14 +215,34 @@ const handleLogout = () => {
 }
 
 const redownloadCheck = async (activity) => {
-  if (!activity.data) {
-    alert('Data for this check is not available for re-download.')
-    return
+  // Support both new structure (activity IS the check data) and old structure (activity.data has the check data)
+  let checkData = activity.payeeName ? activity : activity.data
+
+  // Fallback for very old legacy data without 'data' property
+  if (!checkData) {
+    const confirmFallback = confirm('This check was generated before the re-download feature was fully enabled. Some details (like bank name and date) may be missing. Do you want to proceed with default values?')
+
+    if (!confirmFallback) return
+
+    // Attempt to extract data from description
+    const description = activity.description || ''
+    const payeeMatch = description.match(/Generated check for (.+?) -/)
+
+    checkData = {
+      payeeName: payeeMatch ? payeeMatch[1] : 'Unknown Payee',
+      bankName: 'Bank Name', // Default
+      currency: 'USD', // Default
+      amount: 0, // Default
+      date: new Date().toISOString().split('T')[0],
+      memo: 'Re-generated Check',
+      accountHolder: 'Account Holder',
+      checkNumber: '0000'
+    }
   }
 
   generatingPDF.value = true
   selectedActivityIndex.value = recentActivity.value.indexOf(activity)
-  selectedCheckData.value = activity.data
+  selectedCheckData.value = checkData
 
   try {
     // Wait for DOM to update with the selected check data
@@ -226,7 +250,7 @@ const redownloadCheck = async (activity) => {
     // Small delay to ensure fonts and styles are applied
     await new Promise(resolve => setTimeout(resolve, 100))
 
-    await generateCheckPDF(activity.data)
+    await generateCheckPDF(checkData)
     showNotification('Check downloaded successfully!', 'success')
   } catch (error) {
     console.error('Error re-generating PDF:', error)
