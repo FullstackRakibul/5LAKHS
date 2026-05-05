@@ -1,162 +1,174 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-dark-bg pt-20">
+    <main class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <!-- Header Section -->
+      <div class="mb-10 space-y-3">
+        <h1 class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-indigo-300 via-indigo-200 to-indigo-100 bg-clip-text text-transparent">
+          Dashboard
+        </h1>
+        <p class="text-lg text-dark-text-secondary">Welcome back! Generate professional bank checks with ease.</p>
+      </div>
 
-
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div class="px-4 py-6 sm:px-0">
-        <!-- Welcome Section -->
-        <div class="bg-white overflow-hidden shadow rounded-lg mb-6">
-          <div class="px-4 py-5 sm:p-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">Dashboard</h2>
-            <p class="text-gray-600">Generate professional bank checks with ease</p>
-          </div>
-        </div>
-
-        <!-- Analytics / Stats Section -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition cursor-pointer"
-            @click="navigateToGenerator">
-            <div class="flex items-center space-x-4">
-              <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6"></path>
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500">New Check</p>
-                <p class="text-lg font-semibold text-gray-900">Generate</p>
-              </div>
+      <!-- Stats Grid Section -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <!-- Generate Check Button Card -->
+        <button 
+          @click="navigateToGenerator"
+          class="glass-card-sm group hover:border-indigo-400 hover:shadow-glow transition-all duration-300 cursor-pointer stagger-item">
+          <div class="flex items-center gap-4">
+            <div class="p-4 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-500 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-indigo-600/30">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="stat-label">New Check</p>
+              <p class="text-xl font-bold text-indigo-300">Generate</p>
             </div>
           </div>
+        </button>
 
-          <div class="bg-white p-6 rounded-lg shadow">
-            <div class="flex items-center space-x-4">
-              <div class="p-3 rounded-full bg-green-100 text-green-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586L18 8.414V19a2 2 0 01-2 2z"></path>
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500">Checks Generated</p>
-                <p class="text-2xl font-bold text-gray-900">{{ checksGenerated }}</p>
-              </div>
+        <!-- Checks Generated Card -->
+        <div class="glass-card-sm stagger-item">
+          <div class="flex items-center gap-4">
+            <div class="p-4 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-500 shadow-lg shadow-emerald-600/30">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586L18 8.414V19a2 2 0 01-2 2z"></path>
+              </svg>
             </div>
-          </div>
-
-          <div class="bg-white p-6 rounded-lg shadow">
-            <div class="flex items-center space-x-4">
-              <div class="p-3 rounded-full bg-blue-100 text-blue-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"></path>
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500">Fixed Amount</p>
-                <p class="text-2xl font-bold text-gray-900">5,00,000</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white p-6 rounded-lg shadow">
-            <div class="flex items-center space-x-4">
-              <div class="p-3 rounded-full bg-purple-100 text-purple-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500">Success Rate</p>
-                <p class="text-2xl font-bold text-gray-900">100%</p>
-              </div>
+            <div>
+              <p class="stat-label">Checks Generated</p>
+              <p class="text-3xl font-bold text-emerald-300">{{ checksGenerated }}</p>
             </div>
           </div>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="bg-white shadow rounded-lg">
-          <div class="px-4 py-5 sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Recent Activity</h3>
-            <div v-if="recentActivity.length > 0" class="space-y-4">
+        <!-- Fixed Amount Card -->
+        <div class="glass-card-sm stagger-item">
+          <div class="flex items-center gap-4">
+            <div class="p-4 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 shadow-lg shadow-blue-600/30">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="stat-label">Fixed Amount</p>
+              <p class="text-2xl font-bold text-blue-300">৳5,00,000</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Rate Card -->
+        <div class="glass-card-sm stagger-item">
+          <div class="flex items-center gap-4">
+            <div class="p-4 rounded-xl bg-gradient-to-br from-amber-600 to-amber-500 shadow-lg shadow-amber-600/30">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="stat-label">Success Rate</p>
+              <p class="text-3xl font-bold text-amber-300">100%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- Recent Activity Section -->
+        <div class="glass-card-lg">
+          <div class="space-y-6">
+            <div>
+              <h2 class="text-2xl font-bold text-dark-text mb-2">Recent Activity</h2>
+              <p class="text-dark-text-secondary">Your recently generated checks</p>
+            </div>
+
+            <div v-if="recentActivity.length > 0" class="space-y-3">
               <div v-for="(activity, index) in recentActivity" :key="index"
-                class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition gap-4 sm:gap-0">
-                <div class="flex items-start space-x-3">
-                  <div class="p-2 bg-indigo-50 rounded-lg text-indigo-600">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                      </path>
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-sm font-medium text-gray-900">
-                      {{ activity.payeeName ? `Check for ${activity.payeeName}` : activity.description }}
-                    </p>
-                    <div class="flex items-center mt-1">
-                      <svg class="w-3 h-3 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                class="activity-card group">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <!-- Activity Info -->
+                  <div class="flex items-start gap-3 flex-1 min-w-0">
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-indigo-600 to-indigo-500 flex-shrink-0 shadow-lg shadow-indigo-600/30">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
                       </svg>
-                      <p class="text-xs text-gray-500">{{ activity.formattedTime || activity.time }}</p>
-                      <span class="mx-2 text-gray-300">•</span>
-                      <p class="text-xs text-gray-500">
-                        {{ activity.amount ? `${activity.currency} ${activity.amount.toLocaleString()}` : '' }}
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-base font-semibold text-dark-text truncate">
+                        {{ activity.payeeName ? `Check for ${activity.payeeName}` : activity.description }}
                       </p>
+                      <div class="flex items-center gap-2 mt-2 flex-wrap">
+                        <span class="inline-flex items-center gap-1 text-xs text-dark-text-secondary">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                          </svg>
+                          {{ activity.formattedTime || activity.time }}
+                        </span>
+                        <span class="text-dark-text-secondary">•</span>
+                        <span class="text-xs font-semibold text-indigo-300">
+                          {{ activity.amount ? `${activity.currency} ${activity.amount.toLocaleString()}` : '' }}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="flex items-center space-x-2 mt-2 sm:mt-0 w-full sm:w-auto">
-                  <button @click="redownloadCheck(activity)" :disabled="generatingPDF"
-                    class="flex-1 sm:flex-none inline-flex justify-center items-center px-3 py-2 sm:py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg v-if="!generatingPDF || selectedActivityIndex !== index" class="w-3 h-3 sm:w-4 sm:h-4 mr-1"
-                      fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                      </path>
-                    </svg>
-                    <svg v-else class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
-                      fill="none" viewBox="0 0 24 24">
-                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                      <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                      </path>
-                    </svg>
-                    <span class="hidden sm:inline">{{ generatingPDF && selectedActivityIndex === index ? 'Generating...'
-                      : 'Re-download' }}</span>
-                    <span class="sm:hidden">{{ generatingPDF && selectedActivityIndex === index ? 'Generating...' :
-                      'Download' }}</span>
-                  </button>
+                  <!-- Action Buttons -->
+                  <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <button @click="redownloadCheck(activity)" 
+                      :disabled="generatingPDF"
+                      class="flex-1 sm:flex-none inline-flex justify-center items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300
+                             bg-gradient-to-r from-indigo-600 to-indigo-500 text-white hover:shadow-lg hover:shadow-indigo-600/30 disabled:opacity-50 disabled:cursor-not-allowed">
+                      <svg v-if="!generatingPDF || selectedActivityIndex !== index" class="w-4 h-4"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                      </svg>
+                      <svg v-else class="animate-spin-indigo w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                      </svg>
+                      <span class="hidden sm:inline">{{ generatingPDF && selectedActivityIndex === index ? 'Generating...'
+                        : 'Download' }}</span>
+                    </button>
 
-                  <button @click="removeActivity(index)"
-                    class="inline-flex items-center px-3 py-2 sm:py-1.5 border border-gray-300 text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                    <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                      </path>
-                    </svg>
-                    <span class="hidden sm:inline ml-1">Remove</span>
-                  </button>
+                    <button @click="removeActivity(index)"
+                      class="inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300
+                             border border-dark-border hover:bg-red-600 hover:bg-opacity-10 hover:border-red-600 hover:border-opacity-30 text-dark-text-secondary hover:text-red-300">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div v-else class="text-center py-8 sm:py-12">
-              <div class="mx-auto w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mb-4">
+            <!-- Empty State -->
+            <div v-else class="text-center py-12">
+              <div class="mx-auto w-16 h-16 text-dark-text-secondary mb-4">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                   </path>
                 </svg>
               </div>
-              <p class="text-sm sm:text-base text-gray-500 mb-2">No recent activity</p>
-              <p class="text-xs sm:text-sm text-gray-400">Generate your first check to get started!</p>
+              <p class="text-dark-text mb-2">No recent activity yet</p>
+              <p class="text-sm text-dark-text-secondary mb-6">Generate your first check to get started!</p>
               <button @click="navigateToGenerator"
-                class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                class="btn-primary inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6"></path>
                 </svg>
-                Generate First Check
+                Create First Check
               </button>
             </div>
           </div>
@@ -281,15 +293,22 @@ const showNotification = (message, type = 'info') => {
 </script>
 
 <style scoped>
-/* Mobile responsive adjustments */
-@media (max-width: 640px) {
+/* Activity Card Styles */
+.activity-card {
+  @apply glass-card-sm;
+  @apply transition-all duration-300;
+}
 
-  /* Improve touch targets on mobile */
+.activity-card:hover {
+  @apply border-indigo-400 shadow-glow;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
   button {
-    min-height: 36px;
+    @apply min-h-10;
   }
 
-  /* Ensure text doesn't overflow on mobile */
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -299,15 +318,22 @@ const showNotification = (message, type = 'info') => {
 
 /* Smooth transitions */
 .transition {
-  transition: all 0.2s ease-in-out;
+  @apply transition-all duration-300 ease-in-out;
 }
 
-/* Hover effects for better UX */
-.hover\:shadow-md:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Animation for stat counter */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.hover\:bg-gray-50:hover {
-  background-color: #f9fafb;
+.stat-value {
+  animation: slideUp 0.5s ease-out;
 }
 </style>

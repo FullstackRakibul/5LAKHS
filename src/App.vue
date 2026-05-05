@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen bg-gray-50">
+  <div id="app" class="min-h-screen bg-dark-bg text-dark-text">
     <Navbar v-if="authStore.isAuthenticated" />
     <router-view v-slot="{ Component }">
       <transition name="page" mode="out-in">
@@ -43,5 +43,10 @@ onMounted(() => {
 .page-leave-to {
   opacity: 0;
   transform: translateY(10px);
+}
+
+/* Smooth color transition on theme change */
+html, body, #app {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 </style>

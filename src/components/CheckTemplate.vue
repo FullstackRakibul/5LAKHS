@@ -122,14 +122,21 @@ const getCurrencyName = (currency) => {
   height: auto;
   min-height: 350px;
   background: #fdfdfd;
-  border: 1px solid #333;
+  border: 2px solid #333;
   padding: 15px;
   font-family: 'Times New Roman', serif;
   font-size: 14px;
   color: #000;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25), inset 0 0 20px rgba(99, 102, 241, 0.05);
   margin: 0 auto;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.check-template:hover {
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.35), inset 0 0 30px rgba(99, 102, 241, 0.08);
+  transform: translateY(-2px);
 }
 
 /* Handwriting font class - random selection */

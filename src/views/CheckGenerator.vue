@@ -1,49 +1,64 @@
 <template>
-  <section class="pt-20">
-    <div class="max-w-7xl mx-auto bg-gray-50">
-      <div class="px-2 sm:px-0">
-        <!-- Header -->
-        <div class="bg-white overflow-hidden shadow rounded-lg mb-4 sm:mb-6">
-          <div class="px-3 sm:px-6 py-4 sm:py-5">
-            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Generate Check</h2>
-            <p class="text-sm sm:text-base text-gray-600">Fill in the details to generate a professional bank check</p>
-          </div>
-        </div>
+  <section class="min-h-screen bg-dark-bg pt-24 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Page Header -->
+      <div class="mb-12 space-y-3">
+        <h1 class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-indigo-300 via-indigo-200 to-indigo-100 bg-clip-text text-transparent">
+          Generate Check
+        </h1>
+        <p class="text-lg text-dark-text-secondary">Fill in the details to create a professional bank check</p>
+      </div>
 
-        <div class="grid grid-cols-1 gap-4 sm:gap-6">
-          <!-- Check Details Form -->
-          <div class="bg-white shadow rounded-lg">
-            <div class="px-3 sm:px-6 py-4 sm:py-5">
-              <h3 class="text-lg font-medium text-gray-900 mb-3 sm:mb-4">Check Details</h3>
+      <!-- Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Form Section -->
+        <div class="glass-card-lg">
+          <div class="space-y-6">
+            <div>
+              <h2 class="text-2xl font-bold text-dark-text mb-2">Check Details</h2>
+              <p class="text-dark-text-secondary">Enter the check information below</p>
+            </div>
 
-              <form @submit.prevent="generateCheck" class="space-y-4 sm:space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label for="payeeName" class="block text-sm font-medium text-gray-700">
-                      Pay to the Order of <span class="text-red-500">*</span>
-                    </label>
-                    <input id="payeeName" v-model="checkData.payeeName" type="text" required
-                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base"
-                      placeholder="Enter payee name" />
-                  </div>
-
-                  <div>
-                    <label for="bankName" class="block text-sm font-medium text-gray-700">
-                      Bank Name <span class="text-red-500">*</span>
-                    </label>
-                    <input id="bankName" v-model="checkData.bankName" type="text" required
-                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base"
-                      placeholder="Enter bank name" />
-                  </div>
+              <form @submit.prevent="generateCheck" class="space-y-6">
+                <!-- Payee Name -->
+                <div>
+                  <label for="payeeName" class="form-label">
+                    Pay to the Order of <span class="text-red-400">*</span>
+                  </label>
+                  <input 
+                    id="payeeName" 
+                    v-model="checkData.payeeName" 
+                    type="text" 
+                    required
+                    class="input-primary text-base"
+                    placeholder="Enter payee name" />
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Two Column Layout -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <!-- Bank Name -->
                   <div>
-                    <label for="currency" class="block text-sm font-medium text-gray-700">
-                      Currency <span class="text-red-500">*</span>
+                    <label for="bankName" class="form-label">
+                      Bank Name <span class="text-red-400">*</span>
                     </label>
-                    <select id="currency" v-model="checkData.currency"
-                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base">
+                    <input 
+                      id="bankName" 
+                      v-model="checkData.bankName" 
+                      type="text" 
+                      required
+                      class="input-primary text-base"
+                      placeholder="Enter bank name" />
+                  </div>
+
+                  <!-- Currency -->
+                  <div>
+                    <label for="currency" class="form-label">
+                      Currency <span class="text-red-400">*</span>
+                    </label>
+                    <select 
+                      id="currency" 
+                      v-model="checkData.currency"
+                      class="input-primary text-base">
                       <option value="BDT">BDT - Bangladeshi Taka</option>
                       <option value="USD">USD - US Dollar</option>
                       <option value="EUR">EUR - Euro</option>
@@ -54,54 +69,80 @@
                       <option value="JPY">JPY - Japanese Yen</option>
                     </select>
                   </div>
-
-                  <div>
-                    <label for="checkDate" class="block text-sm font-medium text-gray-700">
-                      Date <span class="text-red-500">*</span>
-                    </label>
-                    <input id="checkDate" v-model="checkData.date" type="date" required
-                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base" />
-                  </div>
                 </div>
 
+                <!-- Check Date -->
                 <div>
-                  <label class="block text-sm font-medium text-gray-700">Amount (Fixed)</label>
-                  <div class="mt-1 px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
-                    <span class="text-base sm:text-lg font-semibold text-gray-900">
+                  <label for="checkDate" class="form-label">
+                    Date <span class="text-red-400">*</span>
+                  </label>
+                  <input 
+                    id="checkDate" 
+                    v-model="checkData.date" 
+                    type="date" 
+                    required
+                    class="input-primary text-base" />
+                </div>
+
+                <!-- Fixed Amount Display -->
+                <div>
+                  <label class="form-label">Amount (Fixed)</label>
+                  <div class="p-4 rounded-xl border border-dark-border bg-dark-card bg-opacity-20 backdrop-blur-lg">
+                    <p class="text-2xl font-bold text-indigo-300">
                       {{ formatAmount(500000, checkData.currency) }}
-                    </span>
-                    <span class="text-xs sm:text-sm text-gray-500 ml-2">(Five Hundred Thousand)</span>
+                    </p>
+                    <p class="text-sm text-dark-text-secondary mt-2">Five Hundred Thousand</p>
                   </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Memo & Account Holder -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label for="memo" class="block text-sm font-medium text-gray-700">
-                      Memo/For (Optional)
+                    <label for="memo" class="form-label">
+                      Memo/For <span class="text-dark-text-secondary">(Optional)</span>
                     </label>
-                    <input id="memo" v-model="checkData.memo" type="text"
-                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base"
+                    <input 
+                      id="memo" 
+                      v-model="checkData.memo" 
+                      type="text"
+                      class="input-primary text-base"
                       placeholder="Enter memo or purpose" />
                   </div>
 
                   <div>
-                    <label for="accountHolder" class="block text-sm font-medium text-gray-700">
-                      Account Holder Name <span class="text-red-500">*</span>
+                    <label for="accountHolder" class="form-label">
+                      Account Holder <span class="text-red-400">*</span>
                     </label>
-                    <input id="accountHolder" v-model="checkData.accountHolder" type="text" required
-                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base"
+                    <input 
+                      id="accountHolder" 
+                      v-model="checkData.accountHolder" 
+                      type="text" 
+                      required
+                      class="input-primary text-base"
                       placeholder="Enter account holder name" />
                   </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
-                  <button type="submit" :disabled="loading"
-                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-3 rounded-md font-medium transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    {{ loading ? 'Generating...' : 'Generate Check Preview' }}
+                <!-- Action Buttons -->
+                <div class="flex gap-3 pt-4">
+                  <button 
+                    type="submit" 
+                    :disabled="loading"
+                    class="btn-primary flex-1 flex items-center justify-center gap-2">
+                    <svg v-if="!loading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6" />
+                    </svg>
+                    <svg v-else class="animate-spin-indigo w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    {{ loading ? 'Generating...' : 'Generate Preview' }}
                   </button>
 
-                  <button type="button" @click="resetForm"
-                    class="px-4 py-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors text-sm sm:text-base">
+                  <button 
+                    type="button" 
+                    @click="resetForm"
+                    class="btn-secondary px-6">
                     Reset
                   </button>
                 </div>
@@ -109,37 +150,56 @@
             </div>
           </div>
 
-          <!-- Check Preview -->
-          <div class="bg-white shadow rounded-lg">
-            <div class="px-3 sm:px-6 py-4 sm:py-5">
-              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-                <h3 class="text-lg font-medium text-gray-900">Check Preview</h3>
-                <button v-if="showPreview" @click="downloadPDF" :disabled="downloadingPDF"
-                  class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50 w-full sm:w-auto">
-                  {{ downloadingPDF ? 'Generating PDF...' : 'Download Check' }}
-                </button>
+        <!-- Preview Section -->
+        <div class="glass-card-lg sticky top-24">
+          <div class="space-y-6">
+            <!-- Header -->
+            <div class="flex flex-col gap-4">
+              <div>
+                <h2 class="text-2xl font-bold text-dark-text mb-2">Check Preview</h2>
+                <p class="text-dark-text-secondary">Live preview of your check</p>
               </div>
+              
+              <button 
+                v-if="showPreview" 
+                @click="downloadPDF" 
+                :disabled="downloadingPDF"
+                class="btn-primary w-full flex items-center justify-center gap-2">
+                <svg v-if="!downloadingPDF" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <svg v-else class="animate-spin-indigo w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                {{ downloadingPDF ? 'Generating PDF...' : 'Download Check' }}
+              </button>
+            </div>
 
-              <div v-if="!showPreview" class="text-center py-8 sm:py-12 text-gray-500">
-                <svg class="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400" fill="none" stroke="currentColor"
-                  viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <!-- Empty State -->
+            <div v-if="!showPreview" class="text-center py-12">
+              <div class="mx-auto w-16 h-16 text-dark-text-secondary mb-4">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                   </path>
                 </svg>
-                <p class="mt-2 text-sm sm:text-base">Fill in the form to see check preview</p>
               </div>
+              <p class="text-dark-text-secondary">Fill the form to preview your check</p>
+            </div>
 
-              <div v-if="showPreview" class="border rounded-lg overflow-hidden p-2 sm:p-4">
-                <div class="flex justify-center">
-                  <div class="w-full max-w-2xl">
+            <!-- Preview Content -->
+            <div v-if="showPreview" class="space-y-4">
+              <div class="bg-dark-card bg-opacity-40 rounded-xl p-4 border border-dark-border">
+                <div class="flex justify-center overflow-auto">
+                  <div class="w-full max-w-xl">
                     <CheckTemplate :checkData="checkData" />
                   </div>
                 </div>
-                <p class="text-xs text-gray-500 text-center mt-3">
-                  Note: PDF will be generated in actual check size (3x7 inches)
-                </p>
               </div>
+              <p class="text-xs text-dark-text-secondary text-center">
+                PDF will be generated at actual check size (3×7 inches)
+              </p>
             </div>
           </div>
         </div>
@@ -147,6 +207,51 @@
     </div>
   </section>
 </template>
+
+<style scoped>
+.form-label {
+  @apply block text-sm font-semibold text-dark-text mb-2;
+}
+
+/* Input focus style */
+:deep(.input-primary) {
+  @apply text-dark-text placeholder-dark-text-secondary;
+}
+
+:deep(.input-primary:focus) {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Sticky preview on larger screens */
+@media (max-width: 1024px) {
+  .sticky {
+    position: static;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  :deep(.input-primary) {
+    @apply text-base;
+  }
+}
+
+/* Animation for preview appearance */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-preview {
+  animation: fadeSlideUp 0.4s ease-out;
+}
+</style>
 
 <script setup>
 import { ref, onMounted } from 'vue'
