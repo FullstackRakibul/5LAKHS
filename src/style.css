@@ -5,39 +5,292 @@ body {
   @apply font-sans;
 }
 
-/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"); */
+/* Global Font Family - Using Hind Siliguri & Sansation */
 
-/* Converting HSL colors to RGB for html2canvas compatibility */
+/* Indigo Dark Mode Color System */
 :root {
-  --border: rgb(220, 220, 230);
-  --input: rgb(220, 220, 230);
-  --ring: rgb(10, 10, 20);
-  --background: rgb(255, 255, 255);
-  --foreground: rgb(10, 10, 20);
-  --primary: rgb(15, 23, 42);
-  --primary-foreground: rgb(248, 250, 252);
-  --secondary: rgb(241, 245, 249);
-  --secondary-foreground: rgb(10, 10, 20);
-  --destructive: rgb(239, 68, 68);
-  --destructive-foreground: rgb(248, 250, 252);
-  --muted: rgb(241, 245, 249);
-  --muted-foreground: rgb(100, 116, 139);
-  --accent: rgb(241, 245, 249);
-  --accent-foreground: rgb(10, 10, 20);
-  --popover: rgb(255, 255, 255);
-  --popover-foreground: rgb(10, 10, 20);
-  --card: rgb(255, 255, 255);
-  --card-foreground: rgb(10, 10, 20);
-  --radius: 0.5rem;
+  /* Background Colors */
+  --bg-base: #0f0f1a;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+  
+  /* Accent Colors - Indigo */
+  --accent-primary: #6366f1;
+  --accent-light: #818cf8;
+  --accent-lighter: #c7d2fe;
+  
+  /* Status Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --destructive: #ef4444;
+  
+  /* Border & Overlay */
+  --border-color: rgba(99, 102, 241, 0.2);
+  --border-light: rgba(99, 102, 241, 0.3);
+  
+  /* Text Colors */
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #808080;
+  
+  /* Legacy Variables for Compatibility */
+  --border: rgba(99, 102, 241, 0.2);
+  --input: rgba(99, 102, 241, 0.1);
+  --ring: #6366f1;
+  --background: #0f0f1a;
+  --foreground: #f0f0f0;
+  --primary: #6366f1;
+  --primary-foreground: #0f0f1a;
+  --secondary: #1a1a2e;
+  --secondary-foreground: #f0f0f0;
+  --destructive: #ef4444;
+  --destructive-foreground: #f0f0f0;
+  --muted: #a0a0a0;
+  --muted-foreground: #808080;
+  --accent: #6366f1;
+  --accent-foreground: #0f0f1a;
+  --popover: #1a1a2e;
+  --popover-foreground: #f0f0f0;
+  --card: #1a1a2e;
+  --card-foreground: #f0f0f0;
+  --radius: 0.75rem;
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  background-color: var(--background);
-  color: var(--foreground);
+  font-family: "Hind Siliguri", "Sansation", sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  @apply antialiased;
 }
 
-/* Custom styles for check design */
+/* ===== GLASSMORPHISM UTILITIES ===== */
+.glass-base {
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.glass-card {
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card-sm {
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.glass-input-container {
+  position: relative;
+}
+
+/* ===== FORM INPUTS ===== */
+.input-primary {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  background-color: rgba(99, 102, 241, 0.05);
+  color: var(--text-primary);
+  font-family: "Hind Siliguri", "Sansation", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.input-primary::placeholder {
+  color: var(--text-secondary);
+}
+
+.input-primary:focus {
+  outline: none;
+  background-color: rgba(99, 102, 241, 0.1);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+.input-primary:hover:not(:focus) {
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* ===== BUTTONS ===== */
+.button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.button-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  color: #0f0f1a;
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3);
+}
+
+.button-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+}
+
+.button-primary:active {
+  transform: scale(0.95);
+}
+
+.button-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: scale(1);
+}
+
+.button-secondary {
+  background-color: transparent;
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.button-secondary:hover {
+  background-color: rgba(99, 102, 241, 0.1);
+  border-color: var(--accent-primary);
+}
+
+.button-secondary:active {
+  background-color: rgba(99, 102, 241, 0.2);
+}
+
+/* ===== TEXT UTILITIES ===== */
+.text-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes spinIndigo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+  }
+}
+
+/* Animation Utility Classes */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.4s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.animate-spin-indigo {
+  animation: spinIndigo 1s linear infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ===== TRANSITIONS ===== */
+.transition-smooth {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* ===== TEXT UTILITIES ===== */
+.text-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== CHECK DESIGN STYLES ===== */
 .check-paper {
   background: linear-gradient(45deg, transparent 49%, rgba(0, 0, 0, 0.1) 49%, rgba(0, 0, 0, 0.1) 51%, transparent 51%);
   background-size: 20px 20px;
@@ -49,7 +302,7 @@ body {
   letter-spacing: 2px;
 }
 
-/* Utility classes */
+/* ===== UTILITY CLASSES ===== */
 .text-balance {
   text-wrap: balance;
 }
@@ -58,13 +311,7 @@ body {
   text-wrap: pretty;
 }
 
-/* Print styles */
-/* @media print {
-  border: 1px solid #000 !important;
-} */
-
-
-/* Custom Scrollbar */
+/* ===== DARK MODE SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -75,10 +322,22 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: rgba(99, 102, 241, 0.3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--primary), white 20%);
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* ===== FOCUS STATES FOR ACCESSIBILITY ===== */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ===== SELECTION COLOR ===== */
+::selection {
+  background-color: var(--accent-primary);
+  color: var(--bg-base);
 }

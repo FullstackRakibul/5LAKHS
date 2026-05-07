@@ -238,6 +238,11 @@ const navigateToGenerator = () => {
   router.push('/generate-check')
 }
 
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/login')
+}
+
 const redownloadCheck = async (activity) => {
   let checkData = activity.payeeName ? activity : activity.data
 
@@ -316,5 +321,185 @@ const showNotification = (message, type = 'info') => {
 
 :deep(.text-accent-light) {
   color: #818cf8;
+}
+</style>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div v-else class="text-center py-12">
+            <div class="mx-auto w-16 h-16 text-dark-text-secondary mb-4">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                </path>
+              </svg>
+            </div>
+            <p class="text-dark-text mb-2">No recent activity yet</p>
+            <p class="text-sm text-dark-text-secondary mb-6">Generate your first check to get started!</p>
+            <button @click="navigateToGenerator" class="btn-primary inline-flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6"></path>
+              </svg>
+              Create First Check
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>   
+
+  <!-- Hidden Check Template for PDF Generation -->
+  <div class="fixed left-0 top-0 -z-50 opacity-0 pointer-events-none">
+    <div class="w-[800px]">
+      <CheckTemplate v-if="selectedCheckData" :checkData="selectedCheckData" />
+    </div>
+  </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+import CheckTemplate from '../components/CheckTemplate.vue'
+import { generateCheckPDF } from '../utils/pdfGenerator'
+
+const router = useRouter()
+const authStore = useAuthStore()
+
+const checksGenerated = ref(0)
+const recentActivity = ref([])
+const selectedCheckData = ref(null)
+const generatingPDF = ref(false)
+const selectedActivityIndex = ref(-1)
+
+onMounted(() => {
+  loadDashboardData()
+})
+
+const loadDashboardData = () => {
+  const savedChecksCount = localStorage.getItem('checksGenerated')
+  if (savedChecksCount) {
+    checksGenerated.value = parseInt(savedChecksCount)
+  }
+
+  const savedActivity = localStorage.getItem('recentActivity')
+  if (savedActivity) {
+    recentActivity.value = JSON.parse(savedActivity)
+  }
+}
+
+const navigateToGenerator = () => {
+  router.push('/generate-check')
+}
+
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/login')
+}
+
+const redownloadCheck = async (activity) => {
+  // Support both new structure (activity IS the check data) and old structure (activity.data has the check data)
+  let checkData = activity.payeeName ? activity : activity.data
+
+  // Fallback for very old legacy data without 'data' property
+  if (!checkData) {
+    const confirmFallback = confirm('This check was generated before the re-download feature was fully enabled. Some details (like bank name and date) may be missing. Do you want to proceed with default values?')
+
+    if (!confirmFallback) return
+
+    // Attempt to extract data from description
+    const description = activity.description || ''
+    const payeeMatch = description.match(/Generated check for (.+?) -/)
+
+    checkData = {
+      payeeName: payeeMatch ? payeeMatch[1] : 'Unknown Payee',
+      bankName: 'Bank Name', // Default
+      currency: 'USD', // Default
+      amount: 0, // Default
+      date: new Date().toISOString().split('T')[0],
+      memo: 'Re-generated Check',
+      accountHolder: 'Account Holder',
+      checkNumber: '0000'
+    }
+  }
+
+  generatingPDF.value = true
+  selectedActivityIndex.value = recentActivity.value.indexOf(activity)
+  selectedCheckData.value = checkData
+
+  try {
+    // Wait for DOM to update with the selected check data
+    await nextTick()
+    // Small delay to ensure fonts and styles are applied
+    await new Promise(resolve => setTimeout(resolve, 100))
+
+    await generateCheckPDF(checkData)
+    showNotification('Check downloaded successfully!', 'success')
+  } catch (error) {
+    console.error('Error re-generating PDF:', error)
+    showNotification('Failed to re-generate PDF. Please try again.', 'error')
+  } finally {
+    generatingPDF.value = false
+    selectedActivityIndex.value = -1
+    selectedCheckData.value = null
+  }
+}
+
+const removeActivity = (index) => {
+  if (confirm('Are you sure you want to remove this activity?')) {
+    recentActivity.value.splice(index, 1)
+    saveActivityToStorage()
+    showNotification('Activity removed successfully', 'success')
+  }
+}
+
+const saveActivityToStorage = () => {
+  localStorage.setItem('recentActivity', JSON.stringify(recentActivity.value))
+}
+
+const showNotification = (message, type = 'info') => {
+  // Simple notification - you can replace with a proper notification system
+  alert(`${type === 'success' ? '✓' : '⚠'} ${message}`)
+}
+</script>
+
+<style scoped>
+/* Activity Card Styles */
+
+
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+
+
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* Smooth transitions */
+
+
+/* Animation for stat counter */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-value {
+  animation: slideUp 0.5s ease-out;
 }
 </style>

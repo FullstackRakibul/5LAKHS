@@ -99,45 +99,50 @@
                 <p class="text-3xl font-bold text-accent-light">
                   {{ formatAmount(500000, checkData.currency) }}
                 </p>
+                <p class="text-xs text-secondary mt-2">Five Hundred Thousand</p>
               </div>
 
-              <!-- Memo -->
-              <div class="glass-input-container">
-                <label for="memo" class="block text-sm font-medium text-primary mb-2">
-                  Memo
-                </label>
-                <input 
-                  id="memo"
-                  v-model="checkData.memo"
-                  type="text"
-                  class="input-primary w-full"
-                  placeholder="Optional memo for check"
-                  @input="onFormChange"
-                />
-              </div>
+              <!-- Memo & Account Holder -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div class="glass-input-container">
+                  <label for="memo" class="block text-sm font-medium text-primary mb-2">
+                    Memo/For <span class="text-tertiary">(Optional)</span>
+                  </label>
+                  <input 
+                    id="memo"
+                    v-model="checkData.memo"
+                    type="text"
+                    class="input-primary w-full"
+                    placeholder="Enter memo or purpose"
+                    @input="onFormChange"
+                  />
+                </div>
 
-              <!-- Account Holder -->
-              <div class="glass-input-container">
-                <label for="accountHolder" class="block text-sm font-medium text-primary mb-2">
-                  Account Holder <span class="text-warning">*</span>
-                </label>
-                <input 
-                  id="accountHolder"
-                  v-model="checkData.accountHolder"
-                  type="text"
-                  required
-                  class="input-primary w-full"
-                  placeholder="Name of account holder"
-                  @input="onFormChange"
-                />
+                <div class="glass-input-container">
+                  <label for="accountHolder" class="block text-sm font-medium text-primary mb-2">
+                    Account Holder <span class="text-warning">*</span>
+                  </label>
+                  <input 
+                    id="accountHolder"
+                    v-model="checkData.accountHolder"
+                    type="text"
+                    required
+                    class="input-primary w-full"
+                    placeholder="Enter account holder name"
+                    @input="onFormChange"
+                  />
+                </div>
               </div>
 
               <!-- Action Buttons -->
               <div class="flex gap-3 pt-4">
-                <button type="submit" class="button-primary px-6 py-3 flex items-center justify-center gap-2">
+                <button 
+                  type="submit"
+                  :disabled="loading"
+                  class="button-primary flex-1 flex items-center justify-center gap-2 py-3 disabled:opacity-50"
+                >
                   <svg v-if="!loading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6" />
                   </svg>
                   <svg v-else class="animate-spin-indigo w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -386,4 +391,5 @@ const resetForm = () => {
   showPreview.value = false
   generateCheckNumber()
 }
+</script>
 </script>
