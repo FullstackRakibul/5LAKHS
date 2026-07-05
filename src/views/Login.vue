@@ -2,11 +2,17 @@
   <div class="min-h-screen relative overflow-hidden flex items-center justify-center px-4">
     <!-- Animated Background -->
     <div class="absolute inset-0 bg-gradient-to-br from-dark-base via-dark-tertiary to-dark-secondary"></div>
-    
+
     <!-- Animated Blobs -->
-    <div class="absolute top-20 left-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-    <div class="absolute top-40 right-20 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-    <div class="absolute bottom-20 left-40 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    <div
+      class="absolute top-20 left-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
+    </div>
+    <div
+      class="absolute top-40 right-20 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
+    </div>
+    <div
+      class="absolute bottom-20 left-40 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000">
+    </div>
 
     <!-- Main Content -->
     <div class="relative z-10 w-full max-w-md">
@@ -52,7 +58,7 @@
 
             </div>
           </div>
-
+          <p class="text-secondary text-xs">A Creation of</p>
           <h1 class="text-3xl md:text-4xl font-bold text-gradient mb-2">মস্তিস্ক The AI</h1>
           <p class="text-secondary text-xs md:text-base">شراب کے بغیر میرے ہاتھ کا قلم چل نہیں رہا۔ اے بے دھواں آگ، تو
             کہاں ہے؟</p>
@@ -63,44 +69,22 @@
           <!-- Username Input -->
           <div class="glass-input-container">
             <label for="username" class="block text-sm font-medium text-primary mb-2">Username</label>
-            <input 
-              id="username"
-              v-model="credentials.username"
-              type="text"
-              required
-              class="input-primary w-full"
-              placeholder="Enter your username"
-              :disabled="loading"
-            />
+            <input id="username" v-model="credentials.username" type="text" required class="input-primary w-full"
+              placeholder="Enter your username" :disabled="loading" />
           </div>
 
           <!-- Password Input -->
           <div class="glass-input-container">
             <label for="password" class="block text-sm font-medium text-primary mb-2">Password</label>
-            <input 
-              id="password"
-              v-model="credentials.password"
-              type="password"
-              required
-              class="input-primary w-full"
-              placeholder="Enter your password"
-              :disabled="loading"
-            />
+            <input id="password" v-model="credentials.password" type="password" required class="input-primary w-full"
+              placeholder="Enter your password" :disabled="loading" />
           </div>
 
           <!-- Error Message -->
-          <transition
-            enter-active-class="transition ease-out duration-200"
-            enter-from-class="opacity-0 scale-90"
-            enter-to-class="opacity-100 scale-100"
-            leave-active-class="transition ease-in duration-150"
-            leave-from-class="opacity-100 scale-100"
-            leave-to-class="opacity-0 scale-90"
-          >
-            <div 
-              v-if="error"
-              class="p-3 rounded-lg border border-red-500/30 bg-red-500/10 text-red-300 text-sm"
-            >
+          <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 scale-90"
+            enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-150"
+            leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-90">
+            <div v-if="error" class="p-3 rounded-lg border border-red-500/30 bg-red-500/10 text-red-300 text-sm">
               {{ error }}
             </div>
           </transition>
@@ -108,34 +92,25 @@
           <!-- Button Group -->
           <div class="grid grid-cols-3 gap-3 pt-4">
             <!-- Sign In Button -->
-            <button 
-              type="submit"
-              :disabled="loading"
-              class="col-span-1 button-primary h-11 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
-            >
+            <button type="submit" :disabled="loading"
+              class="col-span-1 button-primary h-11 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group">
               <span v-if="!loading" class="relative z-10">Sign In</span>
-              <div 
-                v-else 
-                class="flex items-center justify-center space-x-1"
-              >
+              <div v-else class="flex items-center justify-center space-x-1">
                 <div class="animate-spin-indigo">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
                   </svg>
                 </div>
               </div>
             </button>
 
             <!-- Demo Credentials Button -->
-            <button 
-              
-              type="submit"
-              @click="setDemoCredentials"
-              :disabled="loading"
+            <button type="submit" @click="setDemoCredentials" :disabled="loading"
               class="col-span-2 button-secondary h-11 text-xs md:text-sm font-medium disabled:opacity-50"
-              title="AI diye log in korun"
-            >
+              title="AI diye log in korun">
               আন্দাজে Try করেন
             </button>
           </div>
@@ -219,12 +194,16 @@ const setDemoCredentials = () => {
 }
 
 @keyframes blob {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
